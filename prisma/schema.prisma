@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Project model
+model Project {
+  project_id   Int     @id @default(autoincrement()) // Primary key
+  project_name String  @unique // Project name
+  description  String? // Project description (optional)
+  tasks        Task[] // One-to-many relationship with Task
+}
+
+// Task model
+model Task {
+  task_id     Int       @default(autoincrement()) // Task ID
+  project_id  Int // Foreign key to Project
+  project     Project   @relation(fields: [project_id], references: [project_id])
+  task_name   String // Task name
+  description String? // Task description (optional)
+  priority    String    @default("Medium") // Task priority
+  status      String    @default("Pending") // Task status (Pending, In Progress, Completed, etc.)
+  due_date    DateTime? // Due date of the task (optional)
+
+  // Many-to-many relationship with Tags through TaskTag
+  taskTags TaskTag[]
+
+  @@unique([task_id, project_id]) // Unique constraint for composite primary key
+}
+
+// Tag model
+model Tag {
+  tag_id Int       @id @default(autoincrement()) // Primary key
+  name   String // Tag name
+  tasks  TaskTag[] // Many-to-many relationship with Task (through TaskTag)
+}
+
+// Join table for the many-to-many relationship between Task and Tag
+model TaskTag {
+  task_id    Int
+  project_id Int
+  tag_id     Int
+
+  task Task @relation(fields: [task_id, project_id], references: [task_id, project_id])
+  tag  Tag  @relation(fields: [tag_id], references: [tag_id])
+
+  @@id([task_id, project_id, tag_id]) // Composite primary key
+}

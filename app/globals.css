@@ -1,0 +1,281 @@
+/* Reset some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body Background and Font */
+  body {
+    background-color: #F1EFEC; /* Body background color */
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Page Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Projects Page Container */
+  .projects-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align the content to the top */
+    min-height: 100vh;
+    background-color: #F1EFEC;
+    padding: 1rem;
+    margin-top: 2rem; /* Add some space from the top of the screen */
+  }
+  
+  .projects-page-content {
+    max-width: 1200px;
+    width: 100%;
+    background-color: #D4C9BE;
+    border-radius: 25px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header Section */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .projects-title {
+    font-size: 2.5rem;
+    color: #F1EFEC;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .add-project-btn {
+    background-color: #123458;
+    color: #F1EFEC;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .add-project-btn:hover {
+    background-color: #193B5D;
+    transform: scale(1.05);
+  }
+  
+  /* No Projects State */
+  .no-projects-container {
+    text-align: center;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .no-projects-container p {
+    font-size: 1.25rem;
+    color: #333;
+  }
+  
+  /* Project List */
+  .project-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .project-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .project-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .project-description {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 1rem;
+  }
+  
+  .project-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+  
+  button,
+  a {
+    border: none;
+    outline: none;
+    background: none;
+  }
+  
+  .view-details-btn,
+  .delete-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    border: none; /* Explicitly remove any border */
+    }
+  
+  .view-details-btn {
+    background-color: #123458;
+    color: #F1EFEC;
+    transition: background-color 0.3s ease;
+  }
+  
+  .view-details-btn:hover {
+    background-color: #193B5D;
+    transform: scale(1.05);
+  }
+  
+  .delete-btn {
+    background-color: #123458;
+    color: #F1EFEC;
+    transition: background-color 0.3s ease;
+    text-shadow: none;
+  }
+  
+  .delete-btn:hover {
+    background-color: #193B5D;
+  }
+  
+  /* Removes outline and border on focus for both buttons */
+  .delete-btn:focus,
+  .view-details-btn:focus {
+    outline: none;
+    border: none;
+  }
+  
+  /* Styling for the navigation bar container */
+  .navbar-container {
+    padding: 0.5rem 1rem; /* Adjusted padding for the navbar container */
+    background-color: #D4C9BE;
+    color: #F1EFEC;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px; /* Rounded corners for the bar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  }
+  
+  /* Styling for the navigation bar */
+  .navbar {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  /* Styling for the links (buttons) */
+  .navLink,
+  .home-button { /* Added .home-button class here */
+    padding: 0.5rem 1rem;
+    background-color: #123458;
+    color: #F1EFEC;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow added */
+  }
+  
+  /* Hover effect for links and buttons */
+  .navLink:hover,
+  .home-button:hover { /* Ensure hover works for both */
+    background-color: #193B5D;
+    transform: scale(1.05);
+  }
+  
+  /* Set the background color for the entire body of the application */
+  body {
+    background-color: #F1EFEC;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Styling for the Form */
+  form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  form input,
+  form textarea {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Apply some padding to the content area */
+  section {
+    padding: 2rem 0;
+  }
+  
+  /* Styling for inputs and buttons */
+  input,
+  textarea,
+  button {
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  
+  /* Input and Textarea Styling */
+  input,
+  textarea {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.75rem;
+    width: 100%;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  input:focus,
+  textarea:focus {
+    border-color: #EEF1DA;
+    box-shadow: 0 0 5px rgba(79, 158, 255, 0.7);
+    outline: none;
+  }
+  
+  /* Button Styling */
+  button {
+    padding: 1rem 1.5rem;
+    background-color: #123458;
+    color: #F1EFEC;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow added */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  button:hover {
+    background-color: #123458;
+    transform: scale(1.05);
+  }
+  
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(79, 158, 255, 0.7);
+  }
+  
