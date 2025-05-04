@@ -18,18 +18,11 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
     notFound();
   }
 
-  // Fetch the project, including tasks/tags
+  // Fetch the project, including tasks
   const project = await prisma.project.findUnique({
     where: { project_id: projectId },
     include: {
       tasks: {
-        include: {
-          taskTags: {
-            include: {
-              tag: true,
-            },
-          },
-        },
         orderBy: {
           due_date: 'asc',
         }
@@ -40,13 +33,6 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
   if (!project) {
     notFound();
   }
-
-  // Fetch all available tags for the task form
-  const tags = await prisma.tag.findMany({
-    orderBy: {
-      name: 'asc',
-    },
-  });
 
   // Common padding for consistent alignment
   const commonPadding = "px-6";
@@ -123,7 +109,6 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
           <EnhancedTaskTable 
             initialTasks={project.tasks} 
             projectId={project.project_id}
-            availableTags={tags}
           />
         </div>
       </div>

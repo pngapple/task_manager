@@ -90,15 +90,6 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    // First delete all task-tag relationships for tasks in this project
-    await prisma.taskTag.deleteMany({
-      where: {
-        task: {
-          project_id: projectId
-        }
-      }
-    });
-
     // Then delete all tasks in the project
     await prisma.task.deleteMany({
       where: {

@@ -5,35 +5,6 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Create some initial tags
-  const tags = await Promise.all([
-    prisma.tag.upsert({
-      where: { tag_id: 1 },
-      update: {},
-      create: { name: 'Frontend' },
-    }),
-    prisma.tag.upsert({
-      where: { tag_id: 2 },
-      update: {},
-      create: { name: 'Backend' },
-    }),
-    prisma.tag.upsert({
-      where: { tag_id: 3 },
-      update: {},
-      create: { name: 'Bug' },
-    }),
-    prisma.tag.upsert({
-      where: { tag_id: 4 },
-      update: {},
-      create: { name: 'Feature' },
-    }),
-    prisma.tag.upsert({
-      where: { tag_id: 5 },
-      update: {},
-      create: { name: 'Documentation' },
-    }),
-  ]);
-
-  console.log(`Created ${tags.length} tags`);
   
   // You can comment out or remove the example projects below
   // if you don't want to seed any initial projects

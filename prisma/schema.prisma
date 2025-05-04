@@ -34,27 +34,7 @@ model Task {
   status      String    @default("Pending") // Task status (Pending, In Progress, Completed, etc.)
   due_date    DateTime? // Due date of the task (optional)
 
-  // Many-to-many relationship with Tags through TaskTag
-  taskTags TaskTag[]
-
   @@unique([task_id, project_id]) // Unique constraint for composite primary key
-}
-
-// Tag model
-model Tag {
-  tag_id Int       @id @default(autoincrement()) // Primary key
-  name   String // Tag name
-  tasks  TaskTag[] // Many-to-many relationship with Task (through TaskTag)
-}
-
-// Join table for the many-to-many relationship between Task and Tag
-model TaskTag {
-  task_id    Int
-  project_id Int
-  tag_id     Int
-
-  task Task @relation(fields: [task_id, project_id], references: [task_id, project_id])
-  tag  Tag  @relation(fields: [tag_id], references: [tag_id])
-
-  @@id([task_id, project_id, tag_id]) // Composite primary key
+  @@index([project_id, due_date], map: "task_project_due_idx")
+  @@index([project_id, status], map: "task_project_status_idx")
 }

@@ -1,0 +1,23 @@
+| # | Table | Index name (physical) | Columns | Type |
+|---|-------|-----------------------|---------|------|
+| 1 | `Project` | **project_name_key** <br>(Prisma’s name for @unique) | `(project_name)` | UNIQUE |
+| 2 | `Task` | **task_project_due_idx** | `(project_id, due_date)` | B‑tree |
+| 3 | `Task` | **task_project_status_idx** | `(project_id, status)` | B‑tree |
+| 4 | `Task` | **task_id_project_id_key** <br>(Prisma’s composite @unique) | `(task_id, project_id)` | UNIQUE / PK |
+
+These are the indexes that I have. 
+
+1 and 4 are used every time there is a call to get a specific project or task. Both are used when
+viewing specific projects, and 4 is for accessing specific tasks within the project modification page. 
+1 is specfic to retrieving the project name for display. The primary key is project_id so by default there
+is a key there as well. 
+
+2 and 3 are used for sorting. For example, when I sort the task table, these two queries are called
+
+SELECT "public"."Task"."task_id", "public"."Task"."project_id", "public"."Task"."task_name", "public"."Task"."description", "public"."Task"."priority", "public"."Task"."status", "public"."Task"."due_date" 
+FROM "public"."Task" 
+WHERE "public"."Task"."project_id" = $1 ORDER BY "public"."Task"."status" DESC OFFSET $2
+
+SELECT "public"."Task"."task_id", "public"."Task"."project_id", "public"."Task"."task_name", "public"."Task"."description", "public"."Task"."priority", "public"."Task"."status", "public"."Task"."due_date" 
+FROM "public"."Task" WHERE "public"."Task"."project_id" = $1 
+ORDER BY "public"."Task"."due_date" ASC OFFSET $2

@@ -1,6 +1,11 @@
 // lib/data.ts
 import { prisma } from '../lib/prisma';
-import { Project, Task, Tag, TaskTag } from '@prisma/client';
+import { Project, Task} from '@prisma/client';
+import { Pool } from 'pg';
+
+export const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
 
 export async function getProjects() {
   return prisma.project.findMany({
@@ -17,13 +22,6 @@ export async function getProjectById(id: number) {
     where: { project_id: id },
     include: {
       tasks: {
-        include: {
-          taskTags: {
-            include: {
-              tag: true
-            }
-          }
-        }
       }
     }
   });
@@ -34,13 +32,6 @@ export async function getTasks(projectId: number) {
     where: {
       project_id: projectId
     },
-    include: {
-      taskTags: {
-        include: {
-          tag: true
-        }
-      }
-    }
   });
 }
 
@@ -51,17 +42,6 @@ export async function getTaskById(projectId: number, taskId: number) {
         task_id: taskId,
         project_id: projectId
       }
-    },
-    include: {
-      taskTags: {
-        include: {
-          tag: true
-        }
-      }
     }
   });
-}
-
-export async function getTags() {
-  return prisma.tag.findMany();
 }

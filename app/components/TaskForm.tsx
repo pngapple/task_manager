@@ -15,13 +15,9 @@ interface TaskFormProps {
     priority: 'Low' | 'Medium' | 'High';
     due_date: string | null;
   };
-  tags?: {
-    tag_id: number;
-    name: string;
-  }[];
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({ projectId, task, tags = [] }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ projectId, task }) => {
   const router = useRouter();
   const isEditing = !!task;
   
@@ -31,7 +27,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ projectId, task, tags = [] }) => {
     status: task?.status || 'Not Started',
     priority: task?.priority || 'Medium',
     due_date: task?.due_date ? new Date(task.due_date).toISOString().split('T')[0] : '',
-    selectedTags: task?.taskTags?.map(tt => tt.tag.tag_id) || []
   });
   
   const [submitting, setSubmitting] = useState(false);
@@ -43,24 +38,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ projectId, task, tags = [] }) => {
       ...prev,
       [name]: value
     }));
-  };
-
-  const handleTagChange = (tagId: number) => {
-    setFormData(prev => {
-      const selectedTags = [...prev.selectedTags];
-      const index = selectedTags.indexOf(tagId);
-      
-      if (index === -1) {
-        selectedTags.push(tagId);
-      } else {
-        selectedTags.splice(index, 1);
-      }
-      
-      return {
-        ...prev,
-        selectedTags
-      };
-    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -200,31 +177,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ projectId, task, tags = [] }) => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
-          {tags.length > 0 && (
-            <div className="mb-6">
-              <label className="block text-gray-700 font-medium mb-2">
-                Tags
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {tags.map(tag => (
-                  <div key={tag.tag_id} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={`tag-${tag.tag_id}`}
-                      checked={formData.selectedTags.includes(tag.tag_id)}
-                      onChange={() => handleTagChange(tag.tag_id)}
-                      className="mr-2"
-                    />
-                    <label htmlFor={`tag-${tag.tag_id}`} className="text-sm">
-                      {tag.name}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          
           <div className="flex justify-end space-x-2">
             <Link
               href={`/projects/${projectId}`}
